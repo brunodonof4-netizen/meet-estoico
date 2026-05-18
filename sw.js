@@ -1,7 +1,14 @@
 // MEET PWA Service Worker
 const CACHE = 'meet-v1';
-const ASSETS = ['./index.html', './app.js', './style.css', './manifest.json'];
-
+const ASSETS = [
+  './index.html',
+  './app.js',
+  './style.css',
+  './manifest.json',
+  './fonts/CormorantGaramond.woff2',
+  './fonts/Jost.woff2',
+  './fonts/SpaceMono.woff2'
+];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).catch(() => {}));
   self.skipWaiting();

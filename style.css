@@ -2,7 +2,26 @@
    MEET: Estoicismo Activo — Stylesheet
    Aesthetic: Tierra / Piedra / Estoico
 ═══════════════════════════════════════════════════════ */
-
+/* ── Fuentes locales ── */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('./fonts/CormorantGaramond.woff2') format('woff2');
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('./fonts/SpaceMono.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('./fonts/Jost.woff2') format('woff2');
+  font-weight: 200 500;
+  font-display: swap;
+}
 /* ── Base ── */
 *, *::before, *::after { box-sizing: border-box; }
 
