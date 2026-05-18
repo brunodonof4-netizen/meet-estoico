@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   MEET: Estoicismo Activo — app.js
+   Umbral — app.js
    Vanilla JS · localStorage persistence · No dependencies
 ═══════════════════════════════════════════════════════ */
 
@@ -127,7 +127,7 @@ const STATE = {
   pillarsToday: JSON.parse(localStorage.getItem('meet_pillars_today') || '{}'),
   goals:        JSON.parse(localStorage.getItem('meet_goals')         || '[]'),
   entries:      JSON.parse(localStorage.getItem('meet_entries')       || '[]'),
-  streak:       parseInt(localStorage.getItem('meet_streak')          || '0'),
+  streak: 0),
   lastActive:   localStorage.getItem('meet_last_active')              || '',
   currentView:  'coach',
   selectedTags: new Set(),
@@ -147,7 +147,6 @@ function save() {
   localStorage.setItem('meet_pillars_today', JSON.stringify(STATE.pillarsToday));
   localStorage.setItem('meet_goals',         JSON.stringify(STATE.goals));
   localStorage.setItem('meet_entries',       JSON.stringify(STATE.entries));
-  localStorage.setItem('meet_streak',        String(STATE.streak));
   localStorage.setItem('meet_last_active',   STATE.lastActive);
 }
 
@@ -176,7 +175,6 @@ function uid() {
 
 function showToast(msg, duration = 2500) {
   const t = $('#toast'), m = $('#toast-msg');
-  m.textContent = msg;
   t.classList.remove('hidden');
   t.classList.add('show');
   clearTimeout(t._timer);
@@ -194,11 +192,9 @@ function updateStreak() {
   const today = todayKey();
   if (STATE.lastActive !== today) {
     const yesterday = (() => { const d = new Date(); d.setDate(d.getDate() - 1); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; })();
-    STATE.streak = STATE.lastActive === yesterday ? STATE.streak + 1 : 1;
     STATE.lastActive = today;
     save();
   }
-  $('#streak-count').textContent = `${STATE.streak} días`;
 }
 
 // ─────────────────────────────────────────────
@@ -222,9 +218,6 @@ function renderCoach() {
   // Greeting
   const h = new Date().getHours();
   const greeting = h < 12 ? 'Alba. Es la hora del guerrero.' : h < 17 ? 'La tarde exige acción.' : 'La noche pide silencio y gratitud.';
-  $('#coach-greeting').textContent = `"${COACH_GREETINGS[Math.floor(Math.random() * COACH_GREETINGS.length)]}"`;
-  $('#coach-quote').textContent = greeting;
-  $('#current-date').textContent = formatDate();
 
   // Pillars
   renderPillars();
@@ -237,8 +230,6 @@ function renderCoach() {
 
   // Daily stoic
   const q = STOIC_QUOTES[new Date().getDate() % STOIC_QUOTES.length];
-  $('#daily-stoic').textContent = `"${q.text}"`;
-  $('#daily-stoic-author').textContent = q.author;
 }
 
 function renderPillars() {
@@ -246,7 +237,6 @@ function renderPillars() {
   if (!STATE.pillarsToday[today]) STATE.pillarsToday[today] = {};
   const todayState = STATE.pillarsToday[today];
   const checkedCount = Object.values(todayState).filter(Boolean).length;
-  $('#pillars-progress').textContent = `${checkedCount}/4`;
 
   $('#pillars-grid').innerHTML = PILLARS.map(p => `
     <div class="pillar-card ${todayState[p.key] ? 'checked' : ''}" data-pillar="${p.key}">
@@ -371,8 +361,6 @@ function updatePlayer(idx) {
   const m = MANTRAS[idx];
   const bar = $('#player-bar');
   bar.classList.remove('hidden');
-  $('#player-title').textContent = m.title;
-  $('#player-subtitle').textContent = `${m.subtitle} · ${m.freq}`;
   // Simulate audio playback (real audio requires URLs)
   showToast(`♫ ${m.title} — reproduciendo`);
 }
@@ -422,7 +410,6 @@ function initMeditation() {
 
 function startMeditation() {
   STATE.medActive = true;
-  $('#btn-med-start').textContent = 'PAUSAR';
   $('#meditation-ring').classList.add('active');
   STATE.medInterval = setInterval(() => {
     if (STATE.medSeconds <= 0) {
@@ -437,14 +424,12 @@ function startMeditation() {
 function pauseMeditation() {
   STATE.medActive = false;
   clearInterval(STATE.medInterval);
-  $('#btn-med-start').textContent = 'REANUDAR';
   $('#meditation-ring').classList.remove('active');
 }
 
 function stopMeditation() {
   STATE.medActive = false;
   clearInterval(STATE.medInterval);
-  $('#btn-med-start').textContent = 'INICIAR';
   $('#meditation-ring').classList.remove('active');
 }
 
@@ -468,7 +453,6 @@ function completeMeditation() {
 }
 
 function updateMedDisplay() {
-  $('#med-timer-display').textContent = fmtTime(STATE.medSeconds);
 }
 
 // ─────────────────────────────────────────────
@@ -582,7 +566,6 @@ let recTimer = null;
 let recSeconds = 0;
 
 function renderDiario() {
-  $('#entry-date-display').textContent = formatDate();
   renderEntries();
 }
 
@@ -625,9 +608,6 @@ function renderEntries(filterTag = '') {
 
 function openEntryModal(entry) {
   STATE.currentEntryForModal = entry;
-  $('#modal-entry-date').textContent = formatDate(new Date(entry.date));
-  $('#modal-entry-title').textContent = entry.title || 'Sin título';
-  $('#modal-entry-body').textContent = entry.body || '';
   $('#modal-entry-tags').innerHTML = (entry.tags || []).map(t => `<span class="tag-badge">${t}</span>`).join('');
 
   const audioSection = $('#modal-entry-audio');
@@ -638,10 +618,8 @@ function openEntryModal(entry) {
     $('#modal-play-audio').addEventListener('click', () => {
       if (modalAudio.paused) {
         modalAudio.play();
-        $('#modal-play-audio').textContent = '⏸';
       } else {
         modalAudio.pause();
-        $('#modal-play-audio').textContent = '▶';
       }
     });
     modalAudio.addEventListener('timeupdate', () => {
@@ -700,8 +678,6 @@ function initDiario() {
     if (!STATE.voiceURL) return;
     const audio = new Audio(STATE.voiceURL);
     audio.play();
-    $('#btn-play-preview').textContent = '⏸';
-    audio.onended = () => { $('#btn-play-preview').textContent = '▶'; };
   });
 
   // Delete voice
@@ -709,7 +685,6 @@ function initDiario() {
     STATE.voiceBlob = null;
     STATE.voiceURL = null;
     $('#voice-preview').classList.add('hidden');
-    $('#voice-label').textContent = 'NOTA DE VOZ';
   });
 }
 
@@ -734,7 +709,6 @@ async function toggleRecording() {
         reader.onloadend = () => {
           STATE.voiceURL = reader.result;
           $('#voice-preview').classList.remove('hidden');
-          $('#btn-play-preview').textContent = '▶';
         };
         reader.readAsDataURL(blob);
         stream.getTracks().forEach(t => t.stop());
@@ -744,10 +718,8 @@ async function toggleRecording() {
       $('#voice-timer').classList.remove('hidden');
       recTimer = setInterval(() => {
         recSeconds++;
-        $('#voice-timer').textContent = `● REC ${fmtTime(recSeconds)}`;
       }, 1000);
       $('#btn-voice').classList.add('recording');
-      $('#voice-label').textContent = 'DETENER';
     } catch (err) {
       showToast('🎙 Permiso de micrófono denegado');
     }
@@ -756,7 +728,6 @@ async function toggleRecording() {
     clearInterval(recTimer);
     $('#voice-timer').classList.add('hidden');
     $('#btn-voice').classList.remove('recording');
-    $('#voice-label').textContent = 'NOTA DE VOZ';
   }
 }
 
@@ -786,7 +757,6 @@ function saveEntry() {
   STATE.voiceBlob = null;
   STATE.voiceURL = null;
   $('#voice-preview').classList.add('hidden');
-  $('#voice-label').textContent = 'NOTA DE VOZ';
 
   renderEntries($('#filter-tag').value);
   showToast('✍ Reflexión guardada en el diario');
@@ -797,7 +767,6 @@ function saveEntry() {
 // ─────────────────────────────────────────────
 
 $('#btn-settings').addEventListener('click', () => {
-  showToast(`🏛 MEET v1.0 · Streak: ${STATE.streak} días · ${STATE.entries.length} reflexiones`);
 });
 
 // ─────────────────────────────────────────────
