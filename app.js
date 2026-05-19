@@ -127,7 +127,7 @@ const STATE = {
   pillarsToday: JSON.parse(localStorage.getItem('meet_pillars_today') || '{}'),
   goals:        JSON.parse(localStorage.getItem('meet_goals')         || '[]'),
   entries:      JSON.parse(localStorage.getItem('meet_entries')       || '[]'),
-  streak: 0),
+  streak: 0,
   lastActive:   localStorage.getItem('meet_last_active')              || '',
   currentView:  'coach',
   selectedTags: new Set(),
@@ -188,14 +188,6 @@ function showToast(msg, duration = 2500) {
 // STREAK
 // ─────────────────────────────────────────────
 
-function updateStreak() {
-  const today = todayKey();
-  if (STATE.lastActive !== today) {
-    const yesterday = (() => { const d = new Date(); d.setDate(d.getDate() - 1); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; })();
-    STATE.lastActive = today;
-    save();
-  }
-}
 
 // ─────────────────────────────────────────────
 // NAVIGATION
@@ -862,7 +854,6 @@ function boot() {
   renderTemplo();
   renderDiario();
 
-  updateStreak();
 
   // Hide loader
   setTimeout(() => {
