@@ -1,4 +1,4 @@
-const CACHE = 'meet-v3';
+const CACHE = 'meet-v4';
 const ASSETS = [
   './index.html',
   './app.js',

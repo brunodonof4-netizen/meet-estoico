@@ -41,26 +41,67 @@ const PILLARS = [
   { key: 'T',  label: 'Trabajar', icon: '◇', color: '#a08070', desc: 'Propósito' },
 ];
 
-const MANTRAS = [
-  { id: 'm1', title: 'Mantra de la Calma', subtitle: '432Hz · Tibetan Bowls', icon: '🎵', bg: '#2a1f1a', freq: '432hz' },
-  { id: 'm2', title: 'Silencio Interior',   subtitle: 'Meditación Vipassana', icon: '🔔', bg: '#1a2a1a', freq: '528hz' },
-  { id: 'm3', title: 'Fuego Estoico',        subtitle: 'Concentración Profunda', icon: '🕯', bg: '#2a1a10', freq: '40hz' },
-  { id: 'm4', title: 'Respiración del Guerrero', subtitle: 'Coherencia Cardíaca', icon: '🌬', bg: '#1a1a2a', freq: '174hz' },
+const ESCENARIOS = [
+  {
+    id: 'frec',
+    title: 'Frecuencias Sagradas',
+    icon: '🎵',
+    bg: '#2a1f1a',
+    desc: 'Vibración interior',
+    sounds: [
+      { label: 'Mantra', file: 'audio/sonidos/mantra.opus' },
+      { label: 'Cuencos', file: 'audio/sonidos/cuencos.opus' },
+    ]
+  },
+  {
+    id: 'nat',
+    title: 'Naturaleza Activa',
+    icon: '🌿',
+    bg: '#1a2a1a',
+    desc: 'Viento y pájaros',
+    sounds: [
+      { label: 'Pájaros', file: 'audio/sonidos/pajaros.opus' },
+      { label: 'Viento', file: 'audio/sonidos/viento.opus' },
+    ]
+  },
+  {
+    id: 'agua',
+    title: 'Aguas Profundas',
+    icon: '🌊',
+    bg: '#1a1f2a',
+    desc: 'Mar y lluvia',
+    sounds: [
+      { label: 'Mar', file: 'audio/sonidos/mar.opus' },
+      { label: 'Lluvia', file: 'audio/sonidos/lluvia.opus' },
+    ]
+  },
+  {
+    id: 'tierra',
+    title: 'Tierra y Calma',
+    icon: '🌙',
+    bg: '#1a1a1a',
+    desc: 'Grillos nocturnos',
+    sounds: [
+      { label: 'Grillos', file: 'audio/sonidos/grillos.opus' },
+    ]
+  },
 ];
 
 const AUDIOBOOKS = [
-  { title: 'Meditaciones', author: 'Marco Aurelio', emoji: '📜', duration: '4h 12m', summary: 'El diario privado de un emperador que ejercía el estoicismo a diario. Sus reflexiones sobre el control de la mente, la virtud y la muerte son atemporales.' },
-  { title: 'Cartas a Lucilio', author: 'Séneca', emoji: '✉️', duration: '6h 30m', summary: 'El maestro de la filosofía práctica escribe sobre la amistad, el tiempo, la riqueza y el miedo. Cada carta es una lección de vida directa.' },
-  { title: 'Manual de Vida', author: 'Epicteto', emoji: '⚖️', duration: '1h 45m', summary: 'El esclavo que se convirtió en el filósofo más libre. Separa lo que depende de ti de lo que no. La base del estoicismo práctico.' },
-  { title: 'El Obstáculo es el Camino', author: 'Ryan Holiday', emoji: '🪨', duration: '3h 20m', summary: 'Aplicación moderna del estoicismo. Cada obstáculo que enfrentas es una oportunidad disfrazada. Leer esto cambia tu percepción del fracaso.' },
-  { title: 'Sobre la Brevedad de la Vida', author: 'Séneca', emoji: '⏳', duration: '1h 10m', summary: 'No tenemos poco tiempo; lo desperdiciamos. Séneca te desafía a reclamar cada hora con intención y claridad.' },
+  { title: 'Meditaciones', author: 'Marco Aurelio', emoji: '📜', duration: '8 min', summary: 'El diario privado de un emperador que ejercía el estoicismo a diario. Sus reflexiones sobre el control de la mente, la virtud y la muerte son atemporales.', file: 'audio/audiolibros/marco.opus' },
+  { title: 'Manual de Vida', author: 'Epicteto', emoji: '⚖️', duration: '7 min', summary: 'El esclavo que se convirtió en el filósofo más libre. Separa lo que depende de ti de lo que no. La base del estoicismo práctico.', file: 'audio/audiolibros/epicteto.opus' },
+  { title: 'El Poder del Ahora', author: 'Eckhart Tolle', emoji: '🌅', duration: '8 min', summary: 'Solo el presente es real. Tolle te lleva a descubrir que la fuente de todo sufrimiento es la mente que vive en otro tiempo.', file: 'audio/audiolibros/poder_ahora.opus' },
+  { title: 'Hábitos Atómicos', author: 'James Clear', emoji: '⚡', duration: '7 min', summary: 'Los grandes cambios no vienen de grandes gestos. Vienen de pequeñas decisiones repetidas con consistencia. El sistema supera a la motivación.', file: 'audio/audiolibros/habitos.opus' },
+  { title: 'El Hombre en Busca de Sentido', author: 'Viktor Frankl', emoji: '🕯', duration: '7 min', summary: 'Desde los campos de concentración, Frankl descubrió que quien tiene un porqué puede soportar cualquier cómo. El sentido es la última libertad.', file: 'audio/audiolibros/frankl.opus' },
+  { title: 'El Kybalión', author: 'Los Tres Iniciados', emoji: '🔺', duration: '8 min', summary: 'Los siete principios herméticos que rigen el universo. Mentalismo, correspondencia, vibración. Un mapa del cosmos y de la mente.', file: 'audio/audiolibros/kybalion.opus' },
 ];
 
 const ROUTINES = {
   yoga: [
-    { name: 'Saludo al Sol', duration: '10 min', level: 'Todos', steps: ['De pie, pies juntos. Inspira y levanta los brazos.', 'Exhala y dobla hacia adelante. Manos al suelo.', 'Inhala, pierna derecha atrás. Coxis hacia abajo.', 'Retén. Tabla alta. Mantén el cuerpo alineado.', 'Exhala, baja al suelo. Cobra pose. Inhala.', 'Perro boca abajo. Exhala profundo. 5 respiraciones.', 'Vuelve al inicio. Repite 5 rondas.'] },
-    { name: 'Guerrero del Silencio', duration: '15 min', level: 'Intermedio', steps: ['Guerrero I: pie izquierdo adelante, rodilla a 90°.', 'Brazos arriba, hombros bajos. Respira 5 veces.', 'Guerrero II: abre los brazos al lado. Mira adelante.', 'Ángulo extendido: brazo adelante apoya en muslo.', 'Triángulo: extiende el torso lateral. Mano al tobillo.', 'Repite el lado opuesto. Simetría es disciplina.'] },
-    { name: 'Restauración Nocturna', duration: '20 min', level: 'Fácil', steps: ['Postura del niño. 2 minutos. Suelta el día.', 'Postura del cadáver modificado: piernas en mariposa.', 'Torsión supina derecha. Rodilla al pecho, gira.', 'Torsión supina izquierda. Misma duración.', 'Piernas arriba en la pared. 5 minutos.', 'Savasana final. No hagas nada. Ese es el trabajo.'] },
+    { name: 'Saludo al Sol', duration: '10 min', level: 'Todos', audio: 'audio/yoga/saludo.opus', steps: ['De pie, pies juntos. Inspira y levanta los brazos.', 'Exhala y dobla hacia adelante. Manos al suelo.', 'Inhala, pierna derecha atrás. Coxis hacia abajo.', 'Retén. Tabla alta. Mantén el cuerpo alineado.', 'Exhala, baja al suelo. Cobra pose. Inhala.', 'Perro boca abajo. Exhala profundo. 5 respiraciones.', 'Vuelve al inicio. Repite 5 rondas.'] },
+    { name: 'Guerrero del Silencio', duration: '15 min', level: 'Intermedio', audio: 'audio/yoga/guerrero.opus', steps: ['Guerrero I: pie izquierdo adelante, rodilla a 90°.', 'Brazos arriba, hombros bajos. Respira 5 veces.', 'Guerrero II: abre los brazos al lado. Mira adelante.', 'Ángulo extendido: brazo adelante apoya en muslo.', 'Triángulo: extiende el torso lateral. Mano al tobillo.', 'Repite el lado opuesto. Simetría es disciplina.'] },
+    { name: 'Restauración Nocturna', duration: '20 min', level: 'Fácil', audio: 'audio/yoga/restauracion.opus', steps: ['Postura del niño. 2 minutos. Suelta el día.', 'Postura del cadáver modificado: piernas en mariposa.', 'Torsión supina derecha. Rodilla al pecho, gira.', 'Torsión supina izquierda. Misma duración.', 'Piernas arriba en la pared. 5 minutos.', 'Savasana final. No hagas nada. Ese es el trabajo.'] },
+    { name: 'Yoga Kundalini', duration: '25 min', level: 'Todos', audio: 'audio/yoga/kundalini.opus', img: 'img/kundalini.webp', steps: ['Siéntate en postura fácil. Columna erguida. Cierra los ojos.', 'Respiración de fuego: inhala y exhala rápido por la nariz. 1 minuto.', 'Manos en el corazón. Siente el calor generado.', 'Estiramiento de columna: manos a las rodillas, alterna arco y gato.', 'Postura del camello: abre el pecho, deja caer la cabeza atrás suavemente.', 'Meditación final: mantra interno Om Namah Shivaya. 3 minutos.'] },
   ],
   calistenia: [
     { name: 'Fuerza Fundacional', duration: '20 min', level: 'Principiante', steps: ['Sentadillas: 3×15. Espalda recta, pecho abierto.', 'Flexiones: 3×10. Cuerpo rígido, codos a 45°.', 'Fondos en silla: 3×10. Tríceps y hombros.', 'Plancha: 3×30 seg. Respira. No retengas el aire.', 'Elevaciones de cadera: 3×15. Glúteos apretados.', 'Abdominales: 3×20. Lento en la bajada.'] },
@@ -220,8 +261,12 @@ function renderCoach() {
   // Goals
   renderGoals();
 
-  // Daily stoic
-  const q = STOIC_QUOTES[new Date().getDate() % STOIC_QUOTES.length];
+  // Daily stoic - aleatorio en cada carga
+  const q = STOIC_QUOTES[Math.floor(Math.random() * STOIC_QUOTES.length)];
+  const quoteEl = $('#daily-stoic');
+  const quoteAuthorEl = $('#daily-stoic-author');
+  if (quoteEl) quoteEl.textContent = `"${q.text}"`;
+  if (quoteAuthorEl) quoteAuthorEl.textContent = q.author;
 }
 
 function renderPillars() {
@@ -321,59 +366,141 @@ function renderGoals() {
 // ─────────────────────────────────────────────
 
 function renderEspiritu() {
-  renderMantras();
+  renderEscenarios();
   renderAudiobooks();
 }
 
-function renderMantras() {
-  const list = $('#mantras-list');
-  list.innerHTML = MANTRAS.map((m, i) => `
-    <div class="mantra-item ${STATE.currentMantraIdx === i ? 'playing' : ''}" data-mantra="${i}">
-      <div class="mantra-icon" style="background:${m.bg}">${m.icon}</div>
-      <div class="flex-1">
-        <p class="font-body text-sm text-stone-200">${m.title}</p>
-        <p class="font-mono text-xs text-stone-600">${m.subtitle}</p>
-      </div>
-      <span class="font-mono text-xs text-stone-600">${m.freq}</span>
-      ${STATE.currentMantraIdx === i ? '<span class="text-gold text-sm">▶</span>' : ''}
-    </div>
-  `).join('');
+// Estado escenarios
+const ESCENARIO_STATE = {};
+ESCENARIOS.forEach(e => { ESCENARIO_STATE[e.id] = { activeSound: 0, playing: false }; });
 
-  $$('[data-mantra]').forEach(item => {
-    item.addEventListener('click', () => {
-      const i = parseInt(item.dataset.mantra);
-      STATE.currentMantraIdx = i;
-      updatePlayer(i);
-      renderMantras();
+function stopAllAudio() {
+  if (STATE.currentAudioEl) {
+    STATE.currentAudioEl.pause();
+    STATE.currentAudioEl.src = '';
+    STATE.currentAudioEl = null;
+  }
+}
+
+function renderEscenarios() {
+  const list = $('#mantras-list');
+  list.innerHTML = ESCENARIOS.map(e => {
+    const st = ESCENARIO_STATE[e.id];
+    const isPlaying = st.playing;
+    return `
+    <div class="rounded-2xl bg-stone-800/50 border border-stone-700/50 p-4 mb-3">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:${e.bg}">${e.icon}</div>
+          <div>
+            <p class="font-body text-sm text-stone-200">${e.title}</p>
+            <p class="font-mono text-xs text-stone-600">${e.desc}</p>
+          </div>
+        </div>
+        <button class="escenario-play w-9 h-9 rounded-full border flex items-center justify-center transition-all ${isPlaying ? 'border-gold text-gold' : 'border-stone-600 text-stone-500'}" data-esc="${e.id}">
+          ${isPlaying ? '■' : '▶'}
+        </button>
+      </div>
+      ${e.sounds.length > 1 ? `
+      <div class="flex gap-2 flex-wrap">
+        ${e.sounds.map((s, i) => `
+          <button class="sound-pill font-mono text-xs px-3 py-1 rounded-full border transition-all ${st.activeSound === i ? 'border-gold/60 text-gold bg-gold/10' : 'border-stone-700 text-stone-600'}" data-esc="${e.id}" data-sound="${i}">
+            ${s.label}
+          </button>
+        `).join('')}
+      </div>` : ''}
+    </div>
+  `}).join('');
+
+  // Eventos pills
+  $$('[data-sound]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const escId = pill.dataset.esc;
+      const soundIdx = parseInt(pill.dataset.sound);
+      const st = ESCENARIO_STATE[escId];
+      st.activeSound = soundIdx;
+      if (st.playing) {
+        playEscenario(escId);
+      }
+      renderEscenarios();
+    });
+  });
+
+  // Eventos play/stop
+  $$('.escenario-play').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const escId = btn.dataset.esc;
+      const st = ESCENARIO_STATE[escId];
+      if (st.playing) {
+        stopAllAudio();
+        st.playing = false;
+      } else {
+        stopAllAudio();
+        ESCENARIOS.forEach(e => { ESCENARIO_STATE[e.id].playing = false; });
+        st.playing = true;
+        playEscenario(escId);
+      }
+      renderEscenarios();
     });
   });
 }
 
-function updatePlayer(idx) {
-  const m = MANTRAS[idx];
-  const bar = $('#player-bar');
-  bar.classList.remove('hidden');
-  // Simulate audio playback (real audio requires URLs)
-  showToast(`♫ ${m.title} — reproduciendo`);
+function playEscenario(escId) {
+  const esc = ESCENARIOS.find(e => e.id === escId);
+  const st = ESCENARIO_STATE[escId];
+  const sound = esc.sounds[st.activeSound];
+  const audio = new Audio(sound.file);
+  audio.loop = true;
+  audio.volume = 0.75;
+  audio.play().catch(() => showToast('⚠ No se pudo reproducir'));
+  STATE.currentAudioEl = audio;
+  showToast(`♫ ${esc.title} · ${sound.label}`);
 }
 
+function updatePlayer(idx) {}
+
+// Estado audiolibros
+const BOOK_STATE = {};
+
 function renderAudiobooks() {
-  $('#audiobooks-grid').innerHTML = AUDIOBOOKS.map((b, i) => `
-    <div class="audiobook-card" data-book="${i}">
+  $('#audiobooks-grid').innerHTML = AUDIOBOOKS.map((b, i) => {
+    const playing = BOOK_STATE[i] && BOOK_STATE[i].playing;
+    return `
+    <div class="audiobook-card ${playing ? 'ring-1 ring-gold/50' : ''}" data-book="${i}">
       <div class="audiobook-cover">${b.emoji}</div>
       <div class="flex-1">
         <p class="font-display text-lg italic text-stone-200 leading-tight">${b.title}</p>
         <p class="font-mono text-xs text-stone-600 mb-2">${b.author} · ${b.duration}</p>
         <p class="font-body text-xs text-stone-500 leading-relaxed line-clamp-3">${b.summary}</p>
+        ${b.file ? `<button class="mt-3 font-mono text-xs px-4 py-1.5 rounded-full border transition-all ${playing ? 'border-gold text-gold' : 'border-stone-600 text-stone-500'}" data-book-play="${i}">
+          ${playing ? '■ DETENER' : '▶ ESCUCHAR'}
+        </button>` : ''}
       </div>
     </div>
-  `).join('');
+  `}).join('');
 
-  $$('[data-book]').forEach(card => {
-    card.addEventListener('click', () => {
-      const b = AUDIOBOOKS[parseInt(card.dataset.book)];
-      showToast(`📖 "${b.title}" — Resumen disponible`, 3000);
-      card.classList.toggle('border-gold');
+  $$('[data-book-play]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const i = parseInt(btn.dataset.bookPlay);
+      const b = AUDIOBOOKS[i];
+      const st = BOOK_STATE[i] || { playing: false };
+
+      if (st.playing) {
+        stopAllAudio();
+        BOOK_STATE[i] = { playing: false };
+      } else {
+        stopAllAudio();
+        Object.keys(BOOK_STATE).forEach(k => { BOOK_STATE[k] = { playing: false }; });
+        const audio = new Audio(b.file);
+        audio.volume = 1.0;
+        audio.play().catch(() => showToast('⚠ No se pudo reproducir'));
+        audio.onended = () => { BOOK_STATE[i] = { playing: false }; renderAudiobooks(); };
+        STATE.currentAudioEl = audio;
+        BOOK_STATE[i] = { playing: true };
+        showToast(`📖 ${b.title} — reproduciendo`, 2000);
+      }
+      renderAudiobooks();
     });
   });
 }
@@ -451,6 +578,16 @@ function updateMedDisplay() {
 // CUERPO VIEW
 // ─────────────────────────────────────────────
 
+const COACH_TIPS = [
+  "El dolor de hoy es la fortaleza de mañana. No negocies con la incomodidad.",
+  "El cuerpo es el templo de la mente. Trátalo como tal.",
+  "Cada repetición es una decisión. Cada decisión construye carácter.",
+  "No busques motivación. Busca disciplina. La motivación pasa, la disciplina permanece.",
+  "El guerrero no entrena cuando tiene ganas. Entrena siempre.",
+  "Un cuerpo fuerte sostiene una mente fuerte. Empieza.",
+  "La constancia supera al talento. Siempre.",
+];
+
 function renderCuerpo(routine = STATE.currentRoutine) {
   STATE.currentRoutine = routine;
   $$('.routine-tab').forEach(t => {
@@ -461,7 +598,7 @@ function renderCuerpo(routine = STATE.currentRoutine) {
   $('#routine-content').innerHTML = `
     <div class="mb-4 rounded-xl bg-stone-800/40 border border-stone-700/50 p-4">
       <p class="font-mono text-xs text-stone-500 tracking-widest mb-1">CONSEJO DEL COACH</p>
-      <p class="font-display italic text-stone-300 text-base">"El dolor de hoy es la fortaleza de mañana. No negocies con la incomodidad."</p>
+      <p class="font-display italic text-stone-300 text-base">${COACH_TIPS[Math.floor(Math.random() * COACH_TIPS.length)]}</p>
     </div>
     <div class="space-y-3">
       ${exercises.map((ex, i) => `
@@ -506,13 +643,39 @@ function renderCuerpo(routine = STATE.currentRoutine) {
 
   $$('[data-start-routine]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const ex = exercises[parseInt(btn.dataset.startRoutine)];
+      const idx = parseInt(btn.dataset.startRoutine);
+      const ex = exercises[idx];
+      const isPlaying = STATE.currentAudioEl && !STATE.currentAudioEl.paused && btn.dataset.playing === '1';
+
+      if (isPlaying) {
+        stopAllAudio();
+        btn.textContent = 'INICIAR RUTINA';
+        btn.dataset.playing = '0';
+        return;
+      }
+
       showToast(`💪 ${ex.name} iniciado · ${ex.duration}`);
-      // Mark Entrenar pillar
+      btn.textContent = 'DETENER';
+      btn.dataset.playing = '1';
+
       const today = todayKey();
       if (!STATE.pillarsToday[today]) STATE.pillarsToday[today] = {};
       STATE.pillarsToday[today]['E'] = true;
       save();
+
+      if (ex.audio) {
+        stopAllAudio();
+        setTimeout(() => {
+          const audio = new Audio(ex.audio);
+          audio.volume = 1.0;
+          audio.play().catch(() => {});
+          audio.onended = () => {
+            btn.textContent = 'INICIAR RUTINA';
+            btn.dataset.playing = '0';
+          };
+          STATE.currentAudioEl = audio;
+        }, 3000);
+      }
     });
   });
 }
