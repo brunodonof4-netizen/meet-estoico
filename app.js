@@ -1034,6 +1034,46 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   });
+  // Precargar audios en background
+  if ('caches' in window) preloadAudios();
+}
+
+
+// ─────────────────────────────────────────────
+// PRELOAD AUDIOS OFFLINE
+// ─────────────────────────────────────────────
+async function preloadAudios() {
+  const files = [
+    './audio/audiolibros/marco.opus',
+    './audio/audiolibros/epicteto.opus',
+    './audio/audiolibros/poder_ahora.opus',
+    './audio/audiolibros/habitos.opus',
+    './audio/audiolibros/frankl.opus',
+    './audio/audiolibros/kybalion.opus',
+    './audio/sonidos/cuencos.opus',
+    './audio/sonidos/grillos.opus',
+    './audio/sonidos/lluvia.opus',
+    './audio/sonidos/mantra.opus',
+    './audio/sonidos/mar.opus',
+    './audio/sonidos/pajaros.opus',
+    './audio/sonidos/viento.opus',
+    './audio/yoga/saludo.opus',
+    './audio/yoga/guerrero.opus',
+    './audio/yoga/restauracion.opus',
+    './audio/yoga/kundalini.opus',
+  ];
+  try {
+    const cache = await caches.open('umbral-audio-v1');
+    for (const url of files) {
+      const match = await cache.match(url);
+      if (!match) {
+        try {
+          const response = await fetch(url);
+          if (response.ok) await cache.put(url, response);
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
 }
 
 // Start
