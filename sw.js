@@ -1,12 +1,32 @@
-const CACHE = 'meet-v4';
+const CACHE = 'meet-v5';
 const ASSETS = [
   './index.html',
   './app.js',
   './style.css',
   './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
   './fonts/CormorantGaramond.woff2',
   './fonts/Jost.woff2',
-  './fonts/SpaceMono.woff2'
+  './fonts/SpaceMono.woff2',
+  './img/kundalini.webp',
+  './audio/audiolibros/marco.opus',
+  './audio/audiolibros/epicteto.opus',
+  './audio/audiolibros/poder_ahora.opus',
+  './audio/audiolibros/habitos.opus',
+  './audio/audiolibros/frankl.opus',
+  './audio/audiolibros/kybalion.opus',
+  './audio/sonidos/cuencos.opus',
+  './audio/sonidos/grillos.opus',
+  './audio/sonidos/lluvia.opus',
+  './audio/sonidos/mantra.opus',
+  './audio/sonidos/mar.opus',
+  './audio/sonidos/pajaros.opus',
+  './audio/sonidos/viento.opus',
+  './audio/yoga/saludo.opus',
+  './audio/yoga/guerrero.opus',
+  './audio/yoga/restauracion.opus',
+  './audio/yoga/kundalini.opus',
 ];
 
 const EXTERNAL = [
