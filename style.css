@@ -368,7 +368,7 @@ body {
   overflow: hidden;
   transition: max-height 0.35s ease;
 }
-.exercise-body.open { max-height: 500px; }
+.exercise-body.open { max-height: 1200px; }
 .step-item {
   display: flex; gap: 12px;
   padding: 8px 0;
