@@ -621,6 +621,10 @@ function renderCuerpo(routine = STATE.currentRoutine) {
                   <p class="font-body text-xs text-stone-400 leading-relaxed flex-1">${s}</p>
                 </div>
               `).join('')}
+              ${ex.img ? `
+              <div class="mt-4 rounded-xl overflow-hidden border border-stone-700/40">
+                <img src="${ex.img}" alt="${ex.name}" class="w-full object-cover" loading="lazy" />
+              </div>` : ''}
               <button class="mt-3 btn-primary w-full py-2.5 rounded-xl font-mono text-xs tracking-wider" data-start-routine="${i}">
                 INICIAR RUTINA
               </button>
