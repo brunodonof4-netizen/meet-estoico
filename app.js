@@ -1192,7 +1192,7 @@ async function askCoach() {
         'X-Title': 'Umbral by AS'
       },
       body: JSON.stringify({
-        model: 'mistralai/mistral-7b-instruct:free',
+        model: 'google/gemma-2-9b-it:free',
         messages: [
           { role: 'system', content: buildCoachContext() },
           { role: 'user',   content: userMsg }
