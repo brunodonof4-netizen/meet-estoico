@@ -1183,7 +1183,7 @@ async function askCoach() {
   responseEl.classList.add('hidden');
 
   try {
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1192,7 +1192,7 @@ async function askCoach() {
         'X-Title': 'Umbral by AS'
       },
       body: JSON.stringify({
-        model: 'deepseek/deepseek-chat',
+        model: 'llama-3.1-8b-instant',
         messages: [
           { role: 'system', content: buildCoachContext() },
           { role: 'user',   content: userMsg }
