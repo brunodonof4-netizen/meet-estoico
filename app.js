@@ -1182,7 +1182,7 @@ async function askCoach() {
   loading.style.animation = 'sigil-spin 1s linear infinite';
   responseEl.classList.add('hidden');
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const res = await fetch(url, {
