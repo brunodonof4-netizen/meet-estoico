@@ -1088,7 +1088,7 @@ function initSettings() {
   const status    = $('#settings-key-status');
 
   function openSettings() {
-    const existing = localStorage.getItem('umbral_gemini_key');
+    const existing = localStorage.getItem('umbral_api_key');
     input.value = existing ? '••••••••••••••••••••' : '';
     status.textContent = existing ? '✓ Clave guardada en este dispositivo' : '';
     status.style.color = existing ? 'var(--gold)' : '';
@@ -1112,7 +1112,7 @@ function initSettings() {
       showToast('⚠ Pegá una clave válida');
       return;
     }
-    localStorage.setItem('umbral_gemini_key', val);
+    localStorage.setItem('umbral_api_key', val);
     status.textContent = '✓ Clave guardada';
     status.style.color = 'var(--gold)';
     showToast('🔑 API Key guardada');
@@ -1121,7 +1121,7 @@ function initSettings() {
   });
 
   $('#btn-clear-key').addEventListener('click', () => {
-    localStorage.removeItem('umbral_gemini_key');
+    localStorage.removeItem('umbral_api_key');
     input.value = '';
     status.textContent = 'Clave eliminada';
     status.style.color = 'var(--stone-500)';
@@ -1135,7 +1135,7 @@ function initSettings() {
 // ─────────────────────────────────────────────
 
 function updateCoachIAUI() {
-  const hasKey = !!localStorage.getItem('umbral_gemini_key');
+  const hasKey = !!localStorage.getItem('umbral_api_key');
   $('#coach-ia-no-key').classList.toggle('hidden', hasKey);
   $('#coach-ia-input-area').classList.toggle('hidden', !hasKey);
 }
@@ -1164,7 +1164,7 @@ Rutinas disponibles en la app: Yoga (Saludo al Sol, Guerrero del Silencio, Resta
 }
 
 async function askCoach() {
-  const apiKey = localStorage.getItem('umbral_gemini_key');
+  const apiKey = localStorage.getItem('umbral_api_key');
   if (!apiKey) { showToast('⚠ Configurá tu API Key primero'); return; }
 
   const userMsg = $('#coach-ia-input').value.trim();
@@ -1182,56 +1182,38 @@ async function askCoach() {
   loading.style.animation = 'sigil-spin 1s linear infinite';
   responseEl.classList.add('hidden');
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
   try {
-    const res = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://brunodonof4-netizen.github.io/umbral',
+        'X-Title': 'Umbral by AS'
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        messages: [
+          { role: 'system', content: buildCoachContext() },
+          { role: 'user',   content: userMsg }
+        ],
+        max_tokens: 200,
+        temperature: 0.8
+      })
+    });
 
-  body: JSON.stringify({
-    system_instruction: {
-      parts: [
-        { text: buildCoachContext() }
-      ]
-    },
-
-    contents: [
-      {
-        role: 'user',
-        parts: [
-          { text: userMsg }
-        ]
-      }
-    ],
-
-    generationConfig: {
-      maxOutputTokens: 200,
-      temperature: 0.8
-    }
-  })
-});
     if (!res.ok) {
       const errText = await res.text();
-      console.error("ERROR GEMINI:", errText);
-      alert(errText);
-      return;
-      const err = await res.json().catch(() => ({}));
-      if (res.status === 400 || res.status === 403) {
-        showToast('⚠ API Key inválida — revisala en Configuración');
-      } else {
-        showToast(`Error ${res.status} — intentá de nuevo`);
-      }
+      console.error('ERROR COACH:', errText);
+      showToast(`Error ${res.status} — revisá tu API Key`);
       return;
     }
 
     const data = await res.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const reply = data?.choices?.[0]?.message?.content;
 
     if (reply) {
-      textEl.textContent = reply;
+      textEl.textContent = reply.trim();
       responseEl.classList.remove('hidden');
       $('#coach-ia-input').value = '';
     } else {
