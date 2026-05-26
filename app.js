@@ -621,6 +621,10 @@ function renderCuerpo(routine = STATE.currentRoutine) {
                   <p class="font-body text-xs text-stone-400 leading-relaxed flex-1">${s}</p>
                 </div>
               `).join('')}
+              ${ex.img ? `
+              <div class="mt-4 rounded-xl overflow-hidden border border-stone-700/40">
+                <img src="${ex.img}" alt="${ex.name}" class="w-full object-cover" loading="lazy" />
+              </div>` : ''}
               <button class="mt-3 btn-primary w-full py-2.5 rounded-xl font-mono text-xs tracking-wider" data-start-routine="${i}">
                 INICIAR RUTINA
               </button>
@@ -1152,15 +1156,13 @@ function buildCoachContext() {
     `[${e.date || ''}] ${e.text ? e.text.substring(0, 120) : ''}`.trim()
   ).filter(Boolean);
 
-  return `Sos Umbral, un coach personal con estilo estoico. Tu función es ayudar al usuario a organizar y optimizar su día: rutinas de ejercicio, alimentación, meditación, estudio y trabajo. Hablás en español rioplatense, de forma directa, práctica y motivadora. Máximo 4 oraciones. Sin listas ni títulos. Cuando el usuario pregunta qué hacer, das una recomendación concreta basada en su contexto.
+  return `Sos Umbral, un coach personal integral. Ayudás al usuario con cualquier tema que traiga: hábitos, salud, alimentación, ejercicio, emociones, trabajo, relaciones, metas personales. Tu estilo es directo, cálido y con sabiduría estoica cuando aplica — no la imponés en cada respuesta. Hablás en español rioplatense. Máximo 4 oraciones. Sin listas ni títulos. Respondés específicamente lo que te preguntan, sin desviar hacia rutinas si no te lo pidieron.
 
 Contexto del usuario hoy:
 - Pilares completados: ${completedPillars.length ? completedPillars.join(', ') : 'ninguno aún'}
 - Pilares pendientes: ${pendingPillars.length ? pendingPillars.join(', ') : 'todos completados'}
 - Objetivos activos: ${activeGoals.length ? activeGoals.join(' | ') : 'sin objetivos definidos'}
-- Reflexiones recientes del diario: ${recentEntries.length ? recentEntries.join(' || ') : 'sin entradas'}
-
-Rutinas disponibles en la app: Yoga (Saludo al Sol, Guerrero del Silencio, Restauración Nocturna, Yoga Kundalini), Calistenia (Fuerza Fundacional, El Cuerpo del Estoico, Guerrero de Hierro), Estiramientos (Movilidad Matutina, Fascia Viva). Audiolibros: Meditaciones de Marco Aurelio, Manual de Vida de Epicteto, El Poder del Ahora, Hábitos Atómicos, El Hombre en Busca de Sentido, El Kybalión.`;
+- Reflexiones recientes: ${recentEntries.length ? recentEntries.join(' || ') : 'sin entradas'}`;
 }
 
 async function askCoach() {
